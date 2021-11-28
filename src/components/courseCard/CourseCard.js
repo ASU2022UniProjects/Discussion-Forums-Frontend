@@ -10,6 +10,9 @@ const CourseCard = ({ courseName, onClick }) => {
   );
 };
 
-CourseCard.propTypes = {};
+CourseCard.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  courseName: PropTypes.string.isRequired,
+};
 
 export default CourseCard;

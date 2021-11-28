@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useGetCourses } from '../../query';
 import CourseCard from './CourseCard';
 import styles from './CourseCard.module.css';
@@ -7,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../../constants/routes';
 import { CircularProgress } from '@mui/material';
 
-const CourseCardContainer = (props) => {
+const CourseCardContainer = () => {
   const { data, isLoading, isError, error } = useGetCourses();
   const navigate = useNavigate();
 
