@@ -19,7 +19,7 @@ const CourseCardContainer = () => {
       </div>
     );
   } else if (isError) {
-    return <div>{error}</div>;
+    return <div>An unkown error has occured</div>;
   }
 
   const coursesJSX = data.map(({ courseName, courseId }) => (
@@ -30,7 +30,7 @@ const CourseCardContainer = () => {
     />
   ));
 
-  return <div className={styles.courseCardContainer}>{coursesJSX}</div>;
+  return <div className={styles.cardsContainer}>{coursesJSX}</div>;
 };
 
 CourseCardContainer.propTypes = {};
