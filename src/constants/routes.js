@@ -1,5 +1,5 @@
 export default Object.freeze({
   Home: '/',
-  Courses: '/course/',
-  Discussion: '/discussion/',
+  Courses: '/courses/',
+  Discussion: '/discussions/',
 });

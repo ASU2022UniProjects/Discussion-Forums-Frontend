@@ -5,4 +5,11 @@
   padding: 0.9em;
   background-color: var(--cardBack);
   color: black;
+  cursor: pointer;
+}
+
+.title {
+  color: var(--off-black);
+  font-size: 64px;
+  align-self: flex-start;
 }

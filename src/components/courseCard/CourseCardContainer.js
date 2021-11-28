@@ -3,18 +3,32 @@ import PropTypes from 'prop-types';
 import { useGetCourses } from '../../query';
 import CourseCard from './CourseCard';
 import styles from './CourseCard.module.css';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../constants/routes';
+import { CircularProgress } from '@mui/material';
 
 const CourseCardContainer = (props) => {
   const { data, isLoading, isError, error } = useGetCourses();
+  const navigate = useNavigate();
+
+  const onCourseClick = (courseId) => navigate(`${routes.Courses}${courseId}`);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <CircularProgress />
+      </div>
+    );
   } else if (isError) {
     return <div>{error}</div>;
   }
 
-  const coursesJSX = data.map((course) => (
-    <CourseCard courseName={course.courseName} key={course.courseId} />
+  const coursesJSX = data.map(({ courseName, courseId }) => (
+    <CourseCard
+      courseName={courseName}
+      key={courseId}
+      onClick={() => onCourseClick(courseId)}
+    />
   ));
 
   return <div className={styles.courseCardContainer}>{coursesJSX}</div>;

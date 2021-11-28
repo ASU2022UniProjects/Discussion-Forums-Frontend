@@ -14,6 +14,11 @@ const PageHOC = ({ children }) => {
   );
 };
 
-PageHOC.propTypes = {};
+PageHOC.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+};
 
 export default PageHOC;
