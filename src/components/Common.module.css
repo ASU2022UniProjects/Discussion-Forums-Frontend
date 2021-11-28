@@ -6,10 +6,21 @@
   background-color: var(--cardBack);
   color: black;
   cursor: pointer;
+  box-sizing: border-box;
+  font-size: 24px;
 }
 
 .title {
   color: var(--off-black);
   font-size: 64px;
   align-self: flex-start;
+  font-weight: bold;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
 }
