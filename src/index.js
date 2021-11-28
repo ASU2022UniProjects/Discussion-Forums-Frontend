@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import DiscussionsPage from './components/DiscussionsPage';
+import CoursePage from './components/CoursePage';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import routes from './constants/routes';
 import { createTheme } from '@mui/material';
@@ -30,7 +30,7 @@ ReactDOM.render(
             <Route path={routes.Home} element={<App />} />
             <Route
               path={`${routes.Courses}:courseId`}
-              element={<DiscussionsPage />}
+              element={<CoursePage />}
             />
             <Route
               path={`${routes.Discussion}:discussionId`}
