@@ -17,11 +17,9 @@ export const useGetDiscussions = (courseId) => {
     return data;
   });
 };
-export const useGetDiscussion = (courseId, discussionId) => {
+export const useGetDiscussion = (discussionId) => {
   return useQuery(['Discussion', discussionId], async () => {
-    const { data } = await Axios.get(
-      `${apiUrl}/courses/${courseId}/discussions/${discussionId}`
-    );
+    const { data } = await Axios.get(`${apiUrl}/discussions/${discussionId}`);
     return data;
   });
 };

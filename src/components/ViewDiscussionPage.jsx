@@ -6,7 +6,7 @@ import { CircularProgress } from '@mui/material';
 
 const ViewDiscussionPage = (props) => {
   const { discussionId } = useParams();
-  const { isLoading, data } = useGetDiscussion('courseId', discussionId);
+  const { isLoading, data } = useGetDiscussion(discussionId);
   return isLoading ? (
     <CircularProgress />
   ) : (
