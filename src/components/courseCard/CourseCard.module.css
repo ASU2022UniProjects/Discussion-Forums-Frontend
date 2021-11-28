@@ -1,0 +1,12 @@
+.sad {
+  color: rebeccapurple;
+}
+
+.courseCardContainer {
+  width: 80%;
+}
+
+.courseCardContainer > * {
+  margin-top: 0.9em;
+  margin-bottom: 0.9em;
+}
