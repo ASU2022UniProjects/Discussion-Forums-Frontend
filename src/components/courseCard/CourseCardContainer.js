@@ -7,7 +7,7 @@ import routes from '../../constants/routes';
 import { CircularProgress } from '@mui/material';
 
 const CourseCardContainer = () => {
-  const { data, isLoading, isError, error } = useGetCourses();
+  const { data, isLoading, isError } = useGetCourses();
   const navigate = useNavigate();
 
   const onCourseClick = (courseId) => navigate(`${routes.Courses}${courseId}`);
