@@ -1,13 +1,13 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useGetDiscussion } from '../query';
 import { CircularProgress } from '@mui/material';
 import PageHOC from './pageHOC/PageHOC';
-import styles from './Common.module.css';
+import styles from './DiscussionPage.module.css';
 import CreateComment from './createComment/CreateComment';
+import CommentCardContainer from './commentCard/CommentCardContainer';
 
-const ViewDiscussionPage = (props) => {
+const ViewDiscussionPage = () => {
   const { discussionId } = useParams();
   const { isLoading, data, isError } = useGetDiscussion(discussionId);
 
@@ -19,9 +19,10 @@ const ViewDiscussionPage = (props) => {
         <div>An unkown error has occured</div>
       ) : (
         <div>
-          <div className={styles.title}>Discussions</div>
-          discuss ur life choices. discussionId: {discussionId}. Data:{' '}
-          {JSON.stringify(data)}
+          <div className={styles.title}>
+            {data?.courseName}: {data?.title}
+          </div>
+          <CommentCardContainer comments={data?.comments ?? []} />
           <CreateComment discussionId={discussionId} />
         </div>
       )}

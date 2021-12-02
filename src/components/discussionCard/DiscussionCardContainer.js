@@ -10,6 +10,10 @@ const CourseCardContainer = ({ discussions }) => {
   const onCourseClick = (discussionId) =>
     navigate(`${routes.Discussion}${discussionId}`);
 
+  if (discussions.length === 0) {
+    return <div>This Course has no discussions yet</div>;
+  }
+
   const discussionsJSX = discussions.map(
     ({ title, discussionId, authorName, createdAt }) => (
       <DiscussionCard
