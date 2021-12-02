@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetDiscussions } from '../query';
-import {
-  Button,
-  CardActionArea,
-  CircularProgress,
-  TextField,
-} from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import PageHOC from './pageHOC/PageHOC';
 import commonStyles from './Common.module.css';
 import DiscussionCardContainer from './discussionCard/DiscussionCardContainer';

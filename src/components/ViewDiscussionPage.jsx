@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useGetDiscussion } from '../query';
 import { CircularProgress } from '@mui/material';
