@@ -17,7 +17,9 @@ const CourseCardContainer = ({ discussions }) => {
   const discussionsJSX = discussions.map(
     ({ title, discussionId, authorName, createdAt }) => (
       <DiscussionCard
-        courseName={title}
+        discussionName={title}
+        authorName={authorName}
+        createdAt={createdAt}
         key={discussionId}
         onClick={() => onCourseClick(discussionId)}
       />

@@ -20,6 +20,8 @@ const CourseCardContainer = () => {
     );
   } else if (isError) {
     return <div>An unkown error has occured</div>;
+  } else if (data.length === 0) {
+    return <div>No courses were found</div>;
   }
 
   const coursesJSX = data.map(({ courseName, courseId }) => (

@@ -1,5 +1,9 @@
-.sad {
-  color: rebeccapurple;
+.discussionFooter {
+  font-size: 16px;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .cardsContainer {
@@ -10,4 +14,16 @@
   margin-top: 1.2em;
   margin-bottom: 1.2em;
   font-size: 24px;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.4em;
+  padding-right: 0.5em;
+}
+
+.discussionTitle {
+  padding-bottom: 0.5em;
 }
