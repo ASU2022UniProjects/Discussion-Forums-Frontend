@@ -9,13 +9,15 @@ import CreateDiscussion from './createDiscussion/CreateDiscussion';
 
 const CoursePage = () => {
   const { courseId } = useParams();
-  const { isLoading, data } = useGetDiscussions(courseId);
+  const { isLoading, data, isError } = useGetDiscussions(courseId);
   const [isCreateVisible, setIsCreateVisible] = useState(false);
 
   return (
     <PageHOC>
       {isLoading ? (
         <CircularProgress />
+      ) : isError ? (
+        <div>An unkown error has occured</div>
       ) : (
         <>
           <div className={`${commonStyles.title} ${commonStyles.flexRow}`}>
@@ -35,7 +37,7 @@ const CoursePage = () => {
               courseId={courseId}
             />
           )}
-          <DiscussionCardContainer discussions={data.discussions} />
+          <DiscussionCardContainer discussions={data.discussions ?? []} />
         </>
       )}
     </PageHOC>

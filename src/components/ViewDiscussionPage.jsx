@@ -8,15 +8,21 @@ import styles from './Common.module.css';
 
 const ViewDiscussionPage = (props) => {
   const { discussionId } = useParams();
-  const { isLoading, data } = useGetDiscussion(discussionId);
-  if (isLoading) {
-    return <CircularProgress />;
-  }
+  const { isLoading, data, isError } = useGetDiscussion(discussionId);
+
   return (
     <PageHOC>
-      <div className={styles.title}>Discussions</div>
-      discuss ur life choices. discussionId: {discussionId}. Data:{' '}
-      {JSON.stringify(data)}
+      {isLoading ? (
+        <CircularProgress />
+      ) : isError ? (
+        <div>An unkown error has occured</div>
+      ) : (
+        <div>
+          <div className={styles.title}>Discussions</div>
+          discuss ur life choices. discussionId: {discussionId}. Data:{' '}
+          {JSON.stringify(data)}
+        </div>
+      )}
     </PageHOC>
   );
 };
