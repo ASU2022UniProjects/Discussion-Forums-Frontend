@@ -46,7 +46,7 @@ const CreateComment = ({ discussionId }) => {
       <form onSubmit={formik.handleSubmit}>
         <div className={styles.container}>
           <TextFieldFormik
-            label="Reply Comment"
+            label="Reply Content"
             variant="outlined"
             fullWidth
             formik={formik}
