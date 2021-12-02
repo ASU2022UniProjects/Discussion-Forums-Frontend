@@ -32,10 +32,10 @@ export const useCreateDiscussion = (courseId) => {
     return data;
   });
 };
-export const useCreateComment = (courseId, discussionId) => {
+export const useCreateComment = (discussionId) => {
   return useMutation(async (comment) => {
     const { data } = await Axios.post(
-      `${apiUrl}/courses/${courseId}/discussions/${discussionId}/comments`,
+      `${apiUrl}/discussions/${discussionId}/comments`,
       JSON.stringify(comment)
     );
     return data;
