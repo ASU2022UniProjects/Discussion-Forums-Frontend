@@ -1,0 +1,22 @@
+.spaceBetweenRowFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9em;
+  margin-top: 0.3em;
+}
+
+.progress {
+  height: 0.5em;
+  padding: 0.1em;
+}
+
+.card {
+  padding-top: 0.2em;
+}
