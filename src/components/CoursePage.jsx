@@ -10,8 +10,6 @@ import CreateDiscussion from './createDiscussion/CreateDiscussion';
 const CoursePage = () => {
   const { courseId } = useParams();
   const { isLoading, data, isError } = useGetDiscussions(courseId);
-  console.log("data")
-  console.log(data)
   const [isCreateVisible, setIsCreateVisible] = useState(false);
 
   return (

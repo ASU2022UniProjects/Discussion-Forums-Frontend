@@ -5,7 +5,7 @@ const apiUrl = process.env.REACT_APP_API;
 
 export const useGetCourses = () => {
   return useQuery('courses', async () => {
-  
+
     const { data } = await Axios.get(apiUrl + '/courses');
     return data;
   });
@@ -19,16 +19,14 @@ export const useGetDiscussions = (courseId) => {
   });
 };
 export const useGetDiscussion = (discussionId) => {
-  
   return useQuery(['Discussion', discussionId], async () => {
     const { data } = await Axios.get(`${apiUrl}/discussions/${discussionId}`);
-    console.log(data)
     return data;
   });
 };
 export const useCreateDiscussion = (courseId) => {
   return useMutation(async (discussion) => {
-    console.log(discussion)
+  
     const { data } = await Axios.post(
       `${apiUrl}/courses/${courseId}/discussions`,
       discussion
