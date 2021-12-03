@@ -10,6 +10,8 @@ import CreateDiscussion from './createDiscussion/CreateDiscussion';
 const CoursePage = () => {
   const { courseId } = useParams();
   const { isLoading, data, isError } = useGetDiscussions(courseId);
+  console.log("data")
+  console.log(data)
   const [isCreateVisible, setIsCreateVisible] = useState(false);
 
   return (
@@ -21,7 +23,7 @@ const CoursePage = () => {
       ) : (
         <>
           <div className={`${commonStyles.title} ${commonStyles.flexRow}`}>
-            <div> {data.course.courseName}</div>
+            <div> {data.courseName}</div>
             {!isCreateVisible && (
               <Button
                 variant="contained"
@@ -34,7 +36,7 @@ const CoursePage = () => {
           {isCreateVisible && (
             <CreateDiscussion
               onHideCreate={() => setIsCreateVisible(false)}
-              courseId={courseId}
+              courseId={parseInt(courseId)}
             />
           )}
           <DiscussionCardContainer discussions={data.discussions ?? []} />

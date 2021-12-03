@@ -24,11 +24,11 @@ const CourseCardContainer = () => {
     return <div>No courses were found</div>;
   }
 
-  const coursesJSX = data.map(({ courseName, courseId }) => (
+  const coursesJSX = data.map(({ courseName, id }) => (
     <CourseCard
       courseName={courseName}
-      key={courseId}
-      onClick={() => onCourseClick(courseId)}
+      key={id}
+      onClick={() => onCourseClick(id)}
     />
   ));
 

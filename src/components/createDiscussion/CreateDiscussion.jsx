@@ -43,6 +43,7 @@ const CreateDiscussion = ({ onHideCreate, courseId }) => {
       mutation.mutate({
         title: values['discussion-title'],
         authorName: values['author-name'],
+        discDescription:values['discussion-content']
       });
       // alert(JSON.stringify(values, null, 2));
     },

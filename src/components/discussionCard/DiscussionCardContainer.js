@@ -15,13 +15,13 @@ const CourseCardContainer = ({ discussions }) => {
   }
 
   const discussionsJSX = discussions.map(
-    ({ title, discussionId, authorName, createdAt }) => (
+    ({ title, id, authorName, createdAt }) => (
       <DiscussionCard
         discussionName={title}
         authorName={authorName}
         createdAt={createdAt}
-        key={discussionId}
-        onClick={() => onCourseClick(discussionId)}
+        key={id}
+        onClick={() => onCourseClick(id)}
       />
     )
   );
