@@ -4,13 +4,13 @@ import styles from './DiscussionCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../constants/routes';
 
-const CourseCardContainer = ({ discussions }) => {
+const CourseCardContainer = ({ isCreateVisible, discussions }) => {
   const navigate = useNavigate();
 
   const onCourseClick = (discussionId) =>
     navigate(`${routes.Discussion}${discussionId}`);
 
-  if (discussions.length === 0) {
+  if (discussions.length === 0 && ! isCreateVisible) {
     return <div>This Course has no discussions yet</div>;
   }
 

@@ -42,7 +42,10 @@ const CoursePage = () => {
               courseId={parseInt(courseId)}
             />
           )}
-          <DiscussionCardContainer discussions={data.discussions ?? []} />
+          <DiscussionCardContainer
+            isCreateVisible={isCreateVisible}
+            discussions={data.discussions ?? []}
+          />
         </>
       )}
     </PageHOC>
