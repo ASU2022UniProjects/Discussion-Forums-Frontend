@@ -19,7 +19,7 @@ const ViewDiscussionPage = () => {
       ) : isError ? (
         <ErrorOccurred />
       ) : (
-        <div>
+        <div className={styles.cardsContainer}>
           <div className={styles.title}>
             {data?.courseName}: {data?.title}
           </div>
