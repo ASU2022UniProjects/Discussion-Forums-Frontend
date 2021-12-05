@@ -6,7 +6,8 @@ import { Button, LinearProgress } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import TextFieldFormik from '../TextFieldFormik';
-import { useCreateComment } from '../../query';
+import { getDiscussionQueryKey, useCreateComment } from '../../query';
+import { queryClient } from '../..';
 
 const validationSchema = yup.object({
   comment: yup
@@ -20,7 +21,14 @@ const validationSchema = yup.object({
 });
 
 const CreateComment = ({ discussionId }) => {
-  const mutation = useCreateComment(discussionId);
+  const mutation = useCreateComment(discussionId, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(getDiscussionQueryKey(discussionId), (oldData) => {
+        oldData.comments.push(data);
+        return { ...oldData };
+      });
+    },
+  });
   const isFormDisabled = mutation.isLoading;
 
   const formik = useFormik({

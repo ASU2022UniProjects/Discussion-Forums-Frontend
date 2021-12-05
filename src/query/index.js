@@ -10,7 +10,7 @@ export const useGetCourses = () => {
   });
 };
 
-export const getDiscussionsQueryKey = (courseId) => [courseId, 'discussions']
+export const getDiscussionsQueryKey = (courseId) => [courseId, 'discussions'];
 
 export const useGetDiscussions = (courseId) => {
   return useQuery(getDiscussionsQueryKey(courseId), async () => {
@@ -21,8 +21,10 @@ export const useGetDiscussions = (courseId) => {
   });
 };
 
+export const getDiscussionQueryKey = (discussionId) => ['Discussion', discussionId];
+
 export const useGetDiscussion = (discussionId) => {
-  return useQuery(['Discussion', discussionId], async () => {
+  return useQuery(getDiscussionQueryKey(discussionId), async () => {
     const { data } = await Axios.get(`${apiUrl}/discussions/${discussionId}`);
     return data;
   });
@@ -38,12 +40,12 @@ export const useCreateDiscussion = (courseId, mutationConfig) => {
   }, mutationConfig);
 };
 
-export const useCreateComment = (discussionId) => {
+export const useCreateComment = (discussionId, mutationConfig) => {
   return useMutation(async (comment) => {
     const { data } = await Axios.post(
       `${apiUrl}/discussions/${discussionId}/comments`,
       comment
     );
     return data;
-  });
+  }, mutationConfig);
 };
