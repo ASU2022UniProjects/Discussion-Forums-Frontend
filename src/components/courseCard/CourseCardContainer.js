@@ -5,6 +5,7 @@ import styles from './CourseCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../constants/routes';
 import { CircularProgress } from '@mui/material';
+import ErrorOccurred from '../ErrorOccurred';
 
 const CourseCardContainer = () => {
   const navigate = useNavigate();
@@ -18,10 +19,10 @@ const CourseCardContainer = () => {
     );
   }
   if (isError) {
-    return <div>An unknown error has occurred</div>;
+    return <ErrorOccurred />;
   }
   if (data.length === 0) {
-    return <div>No courses were found</div>;
+    return <div className={styles.noCourses}>No courses were found</div>;
   }
 
   return (
