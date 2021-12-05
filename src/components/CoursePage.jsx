@@ -7,11 +7,13 @@ import commonStyles from './Common.module.css';
 import DiscussionCardContainer from './discussionCard/DiscussionCardContainer';
 import CreateDiscussion from './createDiscussion/CreateDiscussion';
 import ErrorOccurred from './ErrorOccurred';
+import AddStudent from './addStudent/AddStudent';
 
 const CoursePage = () => {
   const { courseId } = useParams();
   const { isLoading, data, isError } = useGetDiscussions(courseId);
   const [isCreateVisible, setIsCreateVisible] = useState(false);
+  const [isAddStudentVisible, setIsAddStudentVisible] = useState(false);
 
   let child;
 
@@ -27,18 +29,42 @@ const CoursePage = () => {
         <>
           <div className={`${commonStyles.title} ${commonStyles.flexRow}`}>
             <div>{data.courseName}</div>
-            {!isCreateVisible && (
-              <Button
-                variant="contained"
-                onClick={() => setIsCreateVisible(true)}
-              >
-                Create Discussion
-              </Button>
-            )}
+            <div
+              style={{ display: 'flex', gap: '0.4em', marginBottom: '0.4em' }}
+            >
+              {!isCreateVisible && (
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setIsCreateVisible(true);
+                    setIsAddStudentVisible(false);
+                  }}
+                >
+                  Create Discussion
+                </Button>
+              )}
+              {!isAddStudentVisible && (
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setIsCreateVisible(false);
+                    setIsAddStudentVisible(true);
+                  }}
+                >
+                  Add Student
+                </Button>
+              )}
+            </div>
           </div>
           {isCreateVisible && (
             <CreateDiscussion
               onHideCreate={() => setIsCreateVisible(false)}
+              courseId={parseInt(courseId)}
+            />
+          )}
+          {isAddStudentVisible && (
+            <AddStudent
+              onHide={() => setIsAddStudentVisible(false)}
               courseId={parseInt(courseId)}
             />
           )}
