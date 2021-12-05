@@ -6,6 +6,7 @@ import PageHOC from './pageHOC/PageHOC';
 import styles from './DiscussionPage.module.css';
 import CreateComment from './createComment/CreateComment';
 import CommentCardContainer from './commentCard/CommentCardContainer';
+import ErrorOccurred from './ErrorOccurred';
 
 const ViewDiscussionPage = () => {
   const { discussionId } = useParams();
@@ -16,7 +17,7 @@ const ViewDiscussionPage = () => {
       {isLoading ? (
         <CircularProgress />
       ) : isError ? (
-        <div>An unkown error has occured</div>
+        <ErrorOccurred />
       ) : (
         <div>
           <div className={styles.title}>
