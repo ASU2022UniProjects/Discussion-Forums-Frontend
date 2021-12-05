@@ -10,8 +10,10 @@ export const useGetCourses = () => {
   });
 };
 
+export const getDiscussionsQueryKey = (courseId) => [courseId, 'discussions']
+
 export const useGetDiscussions = (courseId) => {
-  return useQuery([courseId, 'discussions'], async () => {
+  return useQuery(getDiscussionsQueryKey(courseId), async () => {
     const { data } = await Axios.get(
       `${apiUrl}/courses/${courseId}/discussions`
     );
@@ -26,14 +28,14 @@ export const useGetDiscussion = (discussionId) => {
   });
 };
 
-export const useCreateDiscussion = (courseId) => {
+export const useCreateDiscussion = (courseId, mutationConfig) => {
   return useMutation(async (discussion) => {
     const { data } = await Axios.post(
       `${apiUrl}/courses/${courseId}/discussions`,
       discussion
     );
     return data;
-  });
+  }, mutationConfig);
 };
 
 export const useCreateComment = (discussionId) => {

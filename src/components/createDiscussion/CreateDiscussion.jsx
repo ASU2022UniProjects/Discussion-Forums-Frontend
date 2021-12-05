@@ -6,7 +6,10 @@ import { Button, LinearProgress } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import TextFieldFormik from '../TextFieldFormik';
-import { useCreateDiscussion } from '../../query';
+import { getDiscussionsQueryKey, useCreateDiscussion } from '../../query';
+import { useNavigate } from 'react-router';
+import routes from '../../constants/routes';
+import { queryClient } from '../..';
 
 const validationSchema = yup.object({
   'discussion-title': yup
@@ -23,11 +26,17 @@ const validationSchema = yup.object({
 });
 
 const CreateDiscussion = ({ onHideCreate, courseId }) => {
-  const mutation = useCreateDiscussion(courseId);
+  const navigate = useNavigate();
+  const mutation = useCreateDiscussion(courseId, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(getDiscussionsQueryKey(courseId), (oldData) => {
+        oldData.discussions.push(data);
+        return { ...oldData };
+      });
+      navigate(routes.Discussion + data.id);
+    },
+  });
   const isFormDisabled = mutation.isLoading;
-  if (mutation.isSuccess) {
-    console.log('woooooooo');
-  }
 
   const formik = useFormik({
     initialValues: {
@@ -43,9 +52,8 @@ const CreateDiscussion = ({ onHideCreate, courseId }) => {
       mutation.mutate({
         title: values['discussion-title'],
         authorName: values['author-name'],
-        discDescription:values['discussion-content']
+        discDescription: values['discussion-content'],
       });
-      // alert(JSON.stringify(values, null, 2));
     },
   });
 
