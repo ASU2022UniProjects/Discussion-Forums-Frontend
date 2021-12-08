@@ -13,16 +13,20 @@ const validationSchema = yup.object({
   comment: yup
     .string('Enter comment content')
     .min(3, 'comment should be at least 3 letters')
-    .required('comment content is required'),
+    .required('required'),
 });
 
 const CreateComment = ({ discussionId }) => {
   const mutation = useCreateComment(discussionId, {
     onSuccess: (data) => {
-      queryClient.setQueryData(getDiscussionQueryKey(discussionId), (oldData) => {
-        oldData.comments.push(data);
-        return { ...oldData };
-      });
+      queryClient.setQueryData(
+        getDiscussionQueryKey(discussionId.toString()),
+        (oldData) => {
+          oldData.comments.push(data);
+          return { ...oldData };
+        }
+      );
+      formik.resetForm();
     },
   });
   const isFormDisabled = mutation.isLoading;
@@ -34,7 +38,7 @@ const CreateComment = ({ discussionId }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       mutation.mutate({
-        comment: values['comment'],
+        content: values['comment'],
       });
       // alert(JSON.stringify(values, null, 2));
     },
@@ -59,13 +63,13 @@ const CreateComment = ({ discussionId }) => {
           />
 
           <div className={styles.actionButtons}>
-              <Button
-                variant="contained"
-                onClick={formik.handleSubmit}
-                disabled={isFormDisabled}
-              >
-                Post
-              </Button>
+            <Button
+              variant="contained"
+              onClick={formik.handleSubmit}
+              disabled={isFormDisabled}
+            >
+              Post
+            </Button>
           </div>
         </div>
       </form>

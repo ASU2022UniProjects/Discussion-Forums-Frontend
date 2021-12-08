@@ -56,10 +56,10 @@ export const useCreateDiscussion = (courseId, mutationConfig) => {
 
 export const useCreateComment = (discussionId, mutationConfig) => {
   const { axios } = useAxios();
-  return useMutation(async (comment) => {
+  return useMutation(async (content) => {
     const { data } = await axios.post(
       `${apiUrl}/discussions/${discussionId}/comments`,
-      comment
+      content
     );
     return data;
   }, mutationConfig);
