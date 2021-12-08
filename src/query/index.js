@@ -38,7 +38,7 @@ export const getDiscussionQueryKey = (discussionId) => [
 export const useGetDiscussion = (discussionId) => {
   const { axios } = useAxios();
   return useQuery(getDiscussionQueryKey(discussionId), async () => {
-    const { data } = await axios.get(`${apiUrl}/discussions/${discussionId}`);
+    const { data } = await axios.get(`${apiUrl}/discussions/${discussionId}/comments`);
     return data;
   });
 };

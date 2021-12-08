@@ -21,7 +21,7 @@ const ViewDiscussionPage = () => {
       ) : (
         <div className={styles.cardsContainer}>
           <div className={styles.title}>
-            {data?.courseName}: {data?.title}
+            {data?.discussion.course.courseName}: {data?.discussion.title}
           </div>
           <CommentCardContainer comments={data?.comments ?? []} />
           <CreateComment discussionId={discussionId} />
