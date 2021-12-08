@@ -19,3 +19,9 @@
   align-items: flex-end;
   font-size: 18px;
 }
+
+.noDiscussion{
+  margin: 4em 0;
+  font-size: 1.4em;
+  text-align: center;
+}

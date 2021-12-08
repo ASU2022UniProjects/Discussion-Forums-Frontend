@@ -4,7 +4,7 @@ import styles from './CommentCard.module.css';
 
 const CommentCardContainer = ({ comments }) => {
   if (comments.length === 0) {
-    return <div>This disucssion has no comments yet</div>;
+    return <div className={styles.noDiscussion}>This discussion has no comments yet</div>;
   }
   const commentsJSX = comments.map((comment) => (
     <CommentCard comment={comment} key={comment.id} />
