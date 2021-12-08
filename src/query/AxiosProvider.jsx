@@ -2,9 +2,9 @@ import React, { createContext, useContext, useMemo, useState } from 'react';
 import * as Axios from 'axios';
 import { Alert, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router';
+import localStorageKeys from '../constants/localStorageKeys';
 
 const UNAUTHORIZED_STATUS_CODE = 401;
-const LOCAL_STORAGE_ACCESS_TOKEN_KEY = 'access_token';
 const unauthorizedRedirectBlacklist = [`${process.env.REACT_APP_API}/login`];
 
 const AxiosContext = createContext();
@@ -14,7 +14,7 @@ const AxiosProvider = ({ children }) => {
   const [snackBarMessage, setSnackBarMessage] = useState('');
   const navigate = useNavigate();
   const [accessToken, setAccessToken] = useState(
-    localStorage.getItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
+    localStorage.getItem(localStorageKeys.ACCESS_TOKEN)
   );
   const showSnackbar = (msg) => {
     setSnackBarMessage(msg);
@@ -22,7 +22,7 @@ const AxiosProvider = ({ children }) => {
   };
 
   const updateAccessToken = async (newToken) => {
-    localStorage.setItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY, newToken);
+    localStorage.setItem(localStorageKeys.ACCESS_TOKEN, newToken);
     setAccessToken(newToken);
   };
 
