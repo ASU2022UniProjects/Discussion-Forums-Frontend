@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import * as Axios from 'axios';
 import { Alert, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router';
@@ -19,7 +13,9 @@ const AxiosProvider = ({ children }) => {
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState('');
   const navigate = useNavigate();
-  const [accessToken, setAccessToken] = useState('');
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
+  );
   const showSnackbar = (msg) => {
     setSnackBarMessage(msg);
     setSnackBarOpen(true);
@@ -30,10 +26,6 @@ const AxiosProvider = ({ children }) => {
     setAccessToken(newToken);
   };
 
-  useEffect(() => {
-    setAccessToken(localStorage.getItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY));
-  }, []);
-
   const axios = useMemo(() => {
     const newAxios = Axios.create({
       baseURL: process.env.REACT_APP_API,
@@ -41,6 +33,12 @@ const AxiosProvider = ({ children }) => {
         'Content-Type': 'application/json',
       },
       timeout: 10000,
+    });
+    newAxios.interceptors.request.use((config) => {
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+      return config;
     });
     newAxios.interceptors.response.use(
       async (response) => response,
@@ -61,23 +59,7 @@ const AxiosProvider = ({ children }) => {
       }
     );
     return newAxios;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const [axiosRequestInterceptor, setAxiosRequestInterceptor] =
-    useState(undefined);
-
-  useEffect(() => {
-    if (axiosRequestInterceptor !== undefined) {
-      axios.interceptors.request.eject(axiosRequestInterceptor);
-    }
-    const requestInterceptor = axios.interceptors.request.use((config) => {
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      }
-      return config;
-    });
-    setAxiosRequestInterceptor(requestInterceptor);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   return (
