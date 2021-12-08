@@ -1,19 +1,11 @@
-import * as ax from 'axios';
 import { useMutation, useQuery } from 'react-query';
+import { useAxios } from './AxiosProvider';
 const apiUrl = process.env.REACT_APP_API;
 
-const Axios = ax.create({
-  baseURL: apiUrl,
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJtZXllckBnbWFpbC5jb20iLCJyb2xlIjoiU3R1ZGVudCIsImlhdCI6MTYzODczMTA5MiwiZXhwIjoxNjM4NzM4MjkyfQ.wDCrky-1F1Qh1oY75ZUSo3asrfseUpQ1lw2Tat0ZpwQ`,
-  },
-  timeout: 10000,
-});
-
 export const useGetCourses = () => {
+  const { axios } = useAxios();
   return useQuery('courses', async () => {
-    const { data } = await Axios.get(apiUrl + '/courses');
+    const { data } = await axios.get(apiUrl + '/courses');
     return data;
   });
 };
@@ -21,8 +13,9 @@ export const useGetCourses = () => {
 export const getDiscussionsQueryKey = (courseId) => [courseId, 'discussions'];
 
 export const useGetDiscussions = (courseId) => {
+  const { axios } = useAxios();
   return useQuery(getDiscussionsQueryKey(courseId), async () => {
-    const { data } = await Axios.get(
+    const { data } = await axios.get(
       `${apiUrl}/courses/${courseId}/discussions`
     );
     return data;
@@ -35,15 +28,17 @@ export const getDiscussionQueryKey = (discussionId) => [
 ];
 
 export const useGetDiscussion = (discussionId) => {
+  const { axios } = useAxios();
   return useQuery(getDiscussionQueryKey(discussionId), async () => {
-    const { data } = await Axios.get(`${apiUrl}/discussions/${discussionId}`);
+    const { data } = await axios.get(`${apiUrl}/discussions/${discussionId}`);
     return data;
   });
 };
 
 export const useCreateDiscussion = (courseId, mutationConfig) => {
+  const { axios } = useAxios();
   return useMutation(async (discussion) => {
-    const { data } = await Axios.post(
+    const { data } = await axios.post(
       `${apiUrl}/courses/${courseId}/discussions`,
       discussion
     );
@@ -52,8 +47,9 @@ export const useCreateDiscussion = (courseId, mutationConfig) => {
 };
 
 export const useCreateComment = (discussionId, mutationConfig) => {
+  const { axios } = useAxios();
   return useMutation(async (comment) => {
-    const { data } = await Axios.post(
+    const { data } = await axios.post(
       `${apiUrl}/discussions/${discussionId}/comments`,
       comment
     );
@@ -62,8 +58,9 @@ export const useCreateComment = (discussionId, mutationConfig) => {
 };
 
 export const useAddStudent = (courseId, mutationConfig) => {
+  const { axios } = useAxios();
   return useMutation(async (studentId) => {
-    const { data } = await Axios.post(
+    const { data } = await axios.post(
       `${apiUrl}/courses/${courseId}/students`,
       {
         id: studentId,
@@ -74,8 +71,9 @@ export const useAddStudent = (courseId, mutationConfig) => {
 };
 
 export const useDeleteStudent = (courseId, mutationConfig) => {
+  const { axios } = useAxios();
   return useMutation(async (studentId) => {
-    const { data } = await Axios.delete(
+    const { data } = await axios.delete(
       `${apiUrl}/courses/${courseId}/students`,
       {
         id: studentId,
@@ -86,6 +84,7 @@ export const useDeleteStudent = (courseId, mutationConfig) => {
 };
 
 export const useGetCourseStudents = (courseId) => {
+  const { axios } = useAxios();
   return useQuery(['courses', courseId], async () => {
     // const { data } = await Axios.get(apiUrl + '/courses/' + courseId);
     // return data;

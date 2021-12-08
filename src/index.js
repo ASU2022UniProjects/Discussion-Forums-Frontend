@@ -10,6 +10,7 @@ import routes from './constants/routes';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import ViewDiscussionPage from './components/ViewDiscussionPage';
+import AxiosProvider from './query/AxiosProvider';
 
 export const queryClient = new QueryClient();
 
@@ -26,17 +27,19 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <Routes>
-            <Route path={routes.Home} element={<App />} />
-            <Route
-              path={`${routes.Courses}:courseId`}
-              element={<CoursePage />}
-            />
-            <Route
-              path={`${routes.Discussion}:discussionId`}
-              element={<ViewDiscussionPage />}
-            />
-          </Routes>
+          <AxiosProvider>
+            <Routes>
+              <Route path={routes.Home} element={<App />} />
+              <Route
+                path={`${routes.Courses}:courseId`}
+                element={<CoursePage />}
+              />
+              <Route
+                path={`${routes.Discussion}:discussionId`}
+                element={<ViewDiscussionPage />}
+              />
+            </Routes>
+          </AxiosProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>
