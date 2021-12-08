@@ -6,10 +6,9 @@ import { Button, LinearProgress } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import TextFieldFormik from '../TextFieldFormik';
-import { getDiscussionsQueryKey, useCreateDiscussion } from '../../query';
+import { useCreateDiscussion } from '../../query';
 import { useNavigate } from 'react-router';
 import routes from '../../constants/routes';
-import { queryClient } from '../..';
 
 const validationSchema = yup.object({
   'discussion-title': yup
@@ -19,20 +18,12 @@ const validationSchema = yup.object({
     .string('Enter content for the discussion')
     .min(3, 'Content should be at least 3 letters')
     .required('Content is required'),
-  'author-name': yup
-    .string('Enter your name')
-    .min(2, 'Your name should be at least 2 letters')
-    .required('Your name is required'),
 });
 
 const CreateDiscussion = ({ onHideCreate, courseId }) => {
   const navigate = useNavigate();
   const mutation = useCreateDiscussion(courseId, {
     onSuccess: (data) => {
-      queryClient.setQueryData(getDiscussionsQueryKey(courseId), (oldData) => {
-        oldData.discussions.push(data);
-        return { ...oldData };
-      });
       navigate(routes.Discussion + data.id);
     },
   });
@@ -42,7 +33,6 @@ const CreateDiscussion = ({ onHideCreate, courseId }) => {
     initialValues: {
       'discussion-title': '',
       'discussion-content': '',
-      'author-name': '',
     },
     validationSchema: validationSchema,
 
@@ -51,7 +41,6 @@ const CreateDiscussion = ({ onHideCreate, courseId }) => {
     onSubmit: (values) => {
       mutation.mutate({
         title: values['discussion-title'],
-        authorName: values['author-name'],
         discDescription: values['discussion-content'],
       });
     },
@@ -84,30 +73,21 @@ const CreateDiscussion = ({ onHideCreate, courseId }) => {
             disabled={isFormDisabled}
           />
 
-          <div className={styles.spaceBetweenRowFlex}>
-            <TextFieldFormik
-              label="Author Name"
-              variant="outlined"
-              formik={formik}
-              formikKey="author-name"
+          <div className={styles.actionButtons}>
+            <Button
+              variant="text"
+              onClick={onHideCreate}
               disabled={isFormDisabled}
-            />
-            <div style={{ display: 'flex', gap: '0.9em' }}>
-              <Button
-                variant="text"
-                onClick={onHideCreate}
-                disabled={isFormDisabled}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="contained"
-                onClick={formik.handleSubmit}
-                disabled={isFormDisabled}
-              >
-                Post
-              </Button>
-            </div>
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              onClick={formik.handleSubmit}
+              disabled={isFormDisabled}
+            >
+              Post
+            </Button>
           </div>
         </div>
       </form>
