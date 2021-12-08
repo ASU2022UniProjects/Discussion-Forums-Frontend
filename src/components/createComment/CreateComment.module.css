@@ -1,8 +1,9 @@
-.spaceBetweenRowFlex {
+.actionButtons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1em;
 }
 
 .container {

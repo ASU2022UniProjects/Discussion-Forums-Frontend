@@ -14,10 +14,6 @@ const validationSchema = yup.object({
     .string('Enter comment content')
     .min(3, 'comment should be at least 3 letters')
     .required('comment content is required'),
-  'author-name': yup
-    .string('Enter your name')
-    .min(2, 'Your name should be at least 2 letters')
-    .required('Your name is required'),
 });
 
 const CreateComment = ({ discussionId }) => {
@@ -34,13 +30,11 @@ const CreateComment = ({ discussionId }) => {
   const formik = useFormik({
     initialValues: {
       comment: '',
-      'author-name': '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       mutation.mutate({
         comment: values['comment'],
-        authorName: values['author-name'],
       });
       // alert(JSON.stringify(values, null, 2));
     },
@@ -64,15 +58,7 @@ const CreateComment = ({ discussionId }) => {
             disabled={isFormDisabled}
           />
 
-          <div className={styles.spaceBetweenRowFlex}>
-            <TextFieldFormik
-              label="Author Name"
-              variant="outlined"
-              formik={formik}
-              formikKey="author-name"
-              disabled={isFormDisabled}
-            />
-            <div style={{ display: 'flex', gap: '0.9em' }}>
+          <div className={styles.actionButtons}>
               <Button
                 variant="contained"
                 onClick={formik.handleSubmit}
@@ -80,7 +66,6 @@ const CreateComment = ({ discussionId }) => {
               >
                 Post
               </Button>
-            </div>
           </div>
         </div>
       </form>
