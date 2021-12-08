@@ -16,6 +16,12 @@ const AxiosProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem(localStorageKeys.ACCESS_TOKEN)
   );
+  const [studentName, setStudentName] = useState(
+    localStorage.getItem(localStorageKeys.STUDENT_NAME)
+  );
+  const [accountRole, setAccountRole] = useState(
+    localStorage.getItem(localStorageKeys.ROLE)
+  );
   const showSnackbar = (msg) => {
     setSnackBarMessage(msg);
     setSnackBarOpen(true);
@@ -24,6 +30,14 @@ const AxiosProvider = ({ children }) => {
   const updateAccessToken = async (newToken) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, newToken);
     setAccessToken(newToken);
+  };
+  const updateStudentName = async (newName) => {
+    localStorage.setItem(localStorageKeys.STUDENT_NAME, newName);
+    setStudentName(newName);
+  };
+  const updateAccountRole = async (newRole) => {
+    localStorage.setItem(localStorageKeys.ROLE, newRole);
+    setAccountRole(newRole);
   };
 
   const axios = useMemo(() => {
@@ -67,6 +81,11 @@ const AxiosProvider = ({ children }) => {
       value={{
         axios,
         updateAccessToken,
+        studentName,
+        accountRole,
+        updateStudentName,
+        updateAccountRole,
+        isLoggedIn: !!accessToken
       }}
     >
       <Snackbar
@@ -75,7 +94,6 @@ const AxiosProvider = ({ children }) => {
         onClose={() => setSnackBarOpen(false)}
       >
         <Alert severity="error" variant="filled">
-          {' '}
           {snackBarMessage}
         </Alert>
       </Snackbar>

@@ -14,6 +14,18 @@
 .loginButton {
   color: white !important;
 }
+.loggedInWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.loggedInUser {
+  color: white;
+  font-size: 1.2rem;
+}
+.loggedInUserRole {
+  font-size: 1rem;
+}
 
 .page {
   display: flex;
