@@ -11,6 +11,7 @@ import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import ViewDiscussionPage from './components/ViewDiscussionPage';
 import AxiosProvider from './query/AxiosProvider';
+import Login from './pages/login';
 
 export const queryClient = new QueryClient();
 
@@ -37,6 +38,10 @@ ReactDOM.render(
               <Route
                 path={`${routes.Discussion}:discussionId`}
                 element={<ViewDiscussionPage />}
+              />
+              <Route
+                path={routes.Login}
+                element={<Login />}
               />
             </Routes>
           </AxiosProvider>

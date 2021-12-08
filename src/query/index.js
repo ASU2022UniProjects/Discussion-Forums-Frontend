@@ -2,6 +2,14 @@ import { useMutation, useQuery } from 'react-query';
 import { useAxios } from './AxiosProvider';
 const apiUrl = process.env.REACT_APP_API;
 
+export const useLogin = (mutationConfig) => {
+  const { axios } = useAxios();
+  return useMutation( async (body) => {
+    const { data } = await axios.post(apiUrl + '/login', body);
+    return data;
+  }, mutationConfig);
+};
+
 export const useGetCourses = () => {
   const { axios } = useAxios();
   return useQuery('courses', async () => {

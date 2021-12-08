@@ -1,10 +1,18 @@
 .header {
+  background-color: var(--header);
+  padding: 1em 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
   color: white;
   font-size: 48px;
-  background-color: var(--header);
-  padding: 0.3em;
   font-weight: bold;
   cursor: pointer;
+}
+.loginButton {
+  color: white !important;
 }
 
 .page {
