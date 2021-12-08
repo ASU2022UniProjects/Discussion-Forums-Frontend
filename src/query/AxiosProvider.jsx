@@ -61,6 +61,7 @@ const AxiosProvider = ({ children }) => {
       }
     );
     return newAxios;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [axiosRequestInterceptor, setAxiosRequestInterceptor] =
     useState(undefined);
@@ -76,6 +77,7 @@ const AxiosProvider = ({ children }) => {
       return config;
     });
     setAxiosRequestInterceptor(requestInterceptor);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   return (
