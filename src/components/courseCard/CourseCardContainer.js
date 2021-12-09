@@ -23,8 +23,8 @@ const CourseCardContainer = () => {
   }
 
   let new_data;
-  if (new_data?.courses) {
-    new_data = new_data?.courses;
+  if (Array.isArray(data?.courses)) {
+    new_data = data?.courses;
   } else {
     new_data = data;
   }
