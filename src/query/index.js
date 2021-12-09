@@ -4,7 +4,7 @@ const apiUrl = process.env.REACT_APP_API;
 
 export const useLogin = (mutationConfig) => {
   const { axios } = useAxios();
-  return useMutation( async (body) => {
+  return useMutation(async (body) => {
     const { data } = await axios.post(apiUrl + '/login', body);
     return data;
   }, mutationConfig);
@@ -38,7 +38,9 @@ export const getDiscussionQueryKey = (discussionId) => [
 export const useGetDiscussion = (discussionId) => {
   const { axios } = useAxios();
   return useQuery(getDiscussionQueryKey(discussionId), async () => {
-    const { data } = await axios.get(`${apiUrl}/discussions/${discussionId}/comments`);
+    const { data } = await axios.get(
+      `${apiUrl}/discussions/${discussionId}/comments`
+    );
     return data;
   });
 };
@@ -56,10 +58,10 @@ export const useCreateDiscussion = (courseId, mutationConfig) => {
 
 export const useCreateComment = (discussionId, mutationConfig) => {
   const { axios } = useAxios();
-  return useMutation(async (content) => {
+  return useMutation(async ({ content, discussionIdParam }) => {
     const { data } = await axios.post(
-      `${apiUrl}/discussions/${discussionId}/comments`,
-      content
+      `${apiUrl}/discussions/${discussionId || discussionIdParam}/comments`,
+      { content: 'sdasd' }
     );
     return data;
   }, mutationConfig);
@@ -129,4 +131,12 @@ export const useGetCourseStudents = (courseId) => {
       },
     ];
   });
+};
+
+export const useDeleteComment = (commentId, mutationConfig) => {
+  const { axios } = useAxios();
+  return useMutation(async () => {
+    const { data } = await axios.delete(`${apiUrl}/comments/${commentId}`);
+    return data;
+  }, mutationConfig);
 };
