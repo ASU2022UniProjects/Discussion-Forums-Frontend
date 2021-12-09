@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const ContextMenuDelete = ({ authorId, deleteMutation }) => {
-  const { userId: currentUserId } = useAxios();
+  const { userId: currentUserId, accountRole } = useAxios();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open = Boolean(anchorEl);
@@ -24,7 +24,7 @@ const ContextMenuDelete = ({ authorId, deleteMutation }) => {
     setAnchorEl(null);
   };
 
-  if (authorId !== parseInt(currentUserId)) {
+  if (accountRole !== 'Admin' && authorId !== parseInt(currentUserId)) {
     return null;
   }
 
