@@ -69,6 +69,7 @@ const CoursePage = () => {
             />
           )}
           <DiscussionCardContainer
+            courseId={courseId}
             isCreateVisible={isCreateVisible}
             discussions={data.discussions ?? []}
           />

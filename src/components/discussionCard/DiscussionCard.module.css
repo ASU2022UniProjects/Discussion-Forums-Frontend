@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  display: flex;
+  flex-direction: row;
 }
 
 .cardsContainer {

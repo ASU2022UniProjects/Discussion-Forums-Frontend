@@ -140,3 +140,13 @@ export const useDeleteComment = (commentId, mutationConfig) => {
     return data;
   }, mutationConfig);
 };
+
+export const useDeleteDiscussion = (discussionId, mutationConfig) => {
+  const { axios } = useAxios();
+  return useMutation(async () => {
+    const { data } = await axios.delete(
+      `${apiUrl}/discussions/${discussionId}`
+    );
+    return data;
+  }, mutationConfig);
+};

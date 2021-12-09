@@ -11,10 +11,16 @@ const ContextMenuDelete = ({ authorId, deleteMutation }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open = Boolean(anchorEl);
+  const preventPropagation = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
   const handleClick = (event) => {
+    preventPropagation(event);
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (e) => {
+    preventPropagation(e);
     setAnchorEl(null);
   };
 
@@ -24,7 +30,11 @@ const ContextMenuDelete = ({ authorId, deleteMutation }) => {
 
   return (
     <>
-      <IconButton onClick={handleClick}>
+      <IconButton
+        onClick={handleClick}
+        onMouseDown={preventPropagation}
+        onTouchStart={preventPropagation}
+      >
         <MoreVertIcon />
       </IconButton>
 
@@ -38,8 +48,8 @@ const ContextMenuDelete = ({ authorId, deleteMutation }) => {
         }}
       >
         <MenuItem
-          onClick={() => {
-            handleClose();
+          onClick={(e) => {
+            handleClose(e);
             deleteMutation.mutate();
           }}
         >
