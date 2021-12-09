@@ -23,7 +23,10 @@ const ViewDiscussionPage = () => {
           <div className={styles.title}>
             {data?.discussion.course.courseName}: {data?.discussion.title}
           </div>
-          <CommentCardContainer comments={data?.comments ?? []} />
+          <CommentCardContainer
+            comments={data?.comments ?? []}
+            discussionId={discussionId}
+          />
           <CreateComment discussionId={discussionId} />
         </div>
       )}

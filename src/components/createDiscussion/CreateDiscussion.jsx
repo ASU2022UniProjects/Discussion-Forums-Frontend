@@ -6,7 +6,7 @@ import { Button, LinearProgress } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import TextFieldFormik from '../TextFieldFormik';
-import { useCreateDiscussion } from '../../query';
+import { useCreateComment, useCreateDiscussion } from '../../query';
 import { useNavigate } from 'react-router';
 import routes from '../../constants/routes';
 
@@ -22,12 +22,12 @@ const validationSchema = yup.object({
 
 const CreateDiscussion = ({ onHideCreate, courseId }) => {
   const navigate = useNavigate();
-  const mutation = useCreateDiscussion(courseId, {
-    onSuccess: (data) => {
-      navigate(routes.Discussion + data.id);
-    },
-  });
-  const isFormDisabled = mutation.isLoading;
+  const commentMutation = useCreateComment(undefined);
+
+  const discusstionMutation = useCreateDiscussion(courseId);
+
+  const isFormDisabled =
+    discusstionMutation.isLoading || commentMutation.isLoading;
 
   const formik = useFormik({
     initialValues: {
@@ -36,20 +36,35 @@ const CreateDiscussion = ({ onHideCreate, courseId }) => {
     },
     validationSchema: validationSchema,
 
-    // todo discussion content?
-    // todo body mismatch
     onSubmit: (values) => {
-      mutation.mutate({
-        title: values['discussion-title'],
-        discDescription: values['discussion-content'],
-      });
+      discusstionMutation.mutate(
+        {
+          title: values['discussion-title'],
+          discDescription: values['discussion-content'],
+        },
+        {
+          onSuccess: (data) => {
+            commentMutation.mutate(
+              {
+                content: values['discussion-content'],
+                discussionIdParam: data.id,
+              },
+              {
+                onSuccess: () => {
+                  navigate(routes.Discussion + data.id);
+                },
+              }
+            );
+          },
+        }
+      );
     },
   });
 
   return (
     <div className={`${commonStyles.card} ${styles.card}`}>
       <div className={styles.progress}>
-        {mutation.isLoading && <LinearProgress />}
+        {isFormDisabled && <LinearProgress />}
       </div>
       <form onSubmit={formik.handleSubmit}>
         <div className={styles.container}>

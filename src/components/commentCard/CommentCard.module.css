@@ -1,5 +1,7 @@
 .card {
   cursor: default;
+  display: flex;
+  flex-direction: row;
 }
 
 .cardsContainer {
@@ -20,7 +22,7 @@
   font-size: 18px;
 }
 
-.noDiscussion{
+.noDiscussion {
   margin: 4em 0;
   font-size: 1.4em;
   text-align: center;

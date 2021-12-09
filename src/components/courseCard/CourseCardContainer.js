@@ -21,13 +21,21 @@ const CourseCardContainer = () => {
   if (isError) {
     return <ErrorOccurred />;
   }
-  if (data.length === 0) {
+
+  let new_data;
+  if (new_data?.courses) {
+    new_data = new_data?.courses;
+  } else {
+    new_data = data;
+  }
+
+  if (new_data.length === 0) {
     return <div className={styles.noCourses}>No courses were found</div>;
   }
 
   return (
     <div className={styles.cardsContainer}>
-      {data.map(({ courseName, id }) => (
+      {new_data?.map(({ courseName, id }) => (
         <CourseCard
           courseName={courseName}
           key={id}
