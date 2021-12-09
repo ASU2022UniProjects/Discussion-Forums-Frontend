@@ -22,6 +22,9 @@ const AxiosProvider = ({ children }) => {
   const [accountRole, setAccountRole] = useState(
     localStorage.getItem(localStorageKeys.ROLE)
   );
+  const [userId, setUserId] = useState(
+    localStorage.getItem(localStorageKeys.USER_ID)
+  );
   const showSnackbar = (msg) => {
     setSnackBarMessage(msg);
     setSnackBarOpen(true);
@@ -38,6 +41,11 @@ const AxiosProvider = ({ children }) => {
   const updateAccountRole = async (newRole) => {
     localStorage.setItem(localStorageKeys.ROLE, newRole);
     setAccountRole(newRole);
+  };
+
+  const updateUserId = async (new_id) => {
+    localStorage.setItem(localStorageKeys.USER_ID, new_id);
+    setUserId(new_id);
   };
 
   const axios = useMemo(() => {
@@ -85,7 +93,9 @@ const AxiosProvider = ({ children }) => {
         accountRole,
         updateStudentName,
         updateAccountRole,
-        isLoggedIn: !!accessToken
+        updateUserId,
+        userId,
+        isLoggedIn: !!accessToken,
       }}
     >
       <Snackbar

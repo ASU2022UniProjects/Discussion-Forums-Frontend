@@ -16,13 +16,19 @@ const validationSchema = yup.object({
 });
 
 const Login = () => {
-  const { updateAccessToken, updateStudentName, updateAccountRole } = useAxios();
+  const {
+    updateAccessToken,
+    updateStudentName,
+    updateAccountRole,
+    updateUserId,
+  } = useAxios();
   const navigate = useNavigate();
   const loginMutation = useLogin({
     onSuccess: (data) => {
       updateAccessToken(data.token);
       updateStudentName(data.studentName);
       updateAccountRole(data.userRole);
+      updateUserId(data.id);
       navigate(routes.Home);
     },
   });
