@@ -24,3 +24,14 @@
   align-items: flex-end;
   width: 100%;
 }
+
+.marginLeftAuto {
+  margin-left: auto;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}

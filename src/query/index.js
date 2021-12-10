@@ -10,9 +10,10 @@ export const useLogin = (mutationConfig) => {
   }, mutationConfig);
 };
 
+export const coursesQueryKey = 'courses';
 export const useGetCourses = () => {
   const { axios } = useAxios();
-  return useQuery('courses', async () => {
+  return useQuery(coursesQueryKey, async () => {
     const { data } = await axios.get(apiUrl + '/courses');
     return data;
   });
@@ -123,6 +124,14 @@ export const useCreateCourse = (mutationConfig) => {
   const { axios } = useAxios();
   return useMutation(async (course) => {
     const { data } = await axios.post(`${apiUrl}/courses`, course);
+    return data;
+  }, mutationConfig);
+};
+
+export const useDeleteCourse = (courseId, mutationConfig) => {
+  const { axios } = useAxios();
+  return useMutation(async () => {
+    const { data } = await axios.delete(`${apiUrl}/courses/${courseId}`);
     return data;
   }, mutationConfig);
 };

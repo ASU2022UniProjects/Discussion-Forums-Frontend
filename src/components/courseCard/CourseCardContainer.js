@@ -38,6 +38,7 @@ const CourseCardContainer = () => {
       {new_data?.map(({ courseName, id }) => (
         <CourseCard
           courseName={courseName}
+          courseId={id}
           key={id}
           onClick={() => navigate(`${routes.Courses}${id}`)}
         />
