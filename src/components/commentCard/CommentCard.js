@@ -7,7 +7,13 @@ import { useQueryClient } from 'react-query';
 import ContextMenuDelete from '../ContextMenuDelete';
 
 const CommentCard = ({ comment, discussionId }) => {
-  const { id: commentId, content, authorName, createdAt, userId } = comment;
+  const {
+    id: commentId,
+    content,
+    createdAt,
+    userId,
+    user: { studentName: authorName },
+  } = comment;
   const queryClient = useQueryClient();
   const deleteMutation = useDeleteComment(commentId, {
     onSuccess: () => {

@@ -15,7 +15,7 @@ const CourseCardContainer = ({ isCreateVisible, discussions, courseId }) => {
   }
 
   const discussionsJSX = discussions.map(
-    ({ title, id, authorName, createdAt, userId }) => (
+    ({ title, id, user: { studentName: authorName }, createdAt, userId }) => (
       <DiscussionCard
         id={id}
         userId={userId}

@@ -18,13 +18,9 @@ const validationSchema = yup.object({
 
 const CreateComment = ({ discussionId }) => {
   const mutation = useCreateComment(discussionId, {
-    onSuccess: (data) => {
-      queryClient.setQueryData(
-        getDiscussionQueryKey(discussionId.toString()),
-        (oldData) => {
-          oldData.comments.push(data);
-          return { ...oldData };
-        }
+    onSuccess: () => {
+      queryClient.invalidateQueries(
+        getDiscussionQueryKey(discussionId.toString())
       );
       formik.resetForm();
     },

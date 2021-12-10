@@ -30,8 +30,10 @@ const DiscussionCard = ({
         >
           <div className={styles.discussionTitle}>{discussionName}</div>
           <div className={styles.discussionFooter}>
-            <div>{authorName}</div>
-            <div>{new Date(createdAt).toLocaleDateString()}</div>
+            <div>
+              <div style={{ marginBottom: '5px' }}>{authorName}</div>
+              <div>{new Date(createdAt).toLocaleDateString()}</div>
+            </div>
             <ContextMenuDelete
               deleteMutation={deleteMutation}
               authorId={userId}

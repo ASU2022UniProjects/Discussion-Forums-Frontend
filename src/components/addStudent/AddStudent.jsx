@@ -44,7 +44,9 @@ const AddStudent = ({ onHide, courseId }) => {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      addStudentMutation.mutate(values.studentId);
+      addStudentMutation.mutate(values.studentId, {
+        onSuccess: () => formik.resetForm(),
+      });
     },
   });
 
@@ -78,7 +80,7 @@ const AddStudent = ({ onHide, courseId }) => {
         </div>
       </form>
       <DataGrid
-        rows={students}
+        rows={students || []}
         columns={[
           { field: 'id', headerName: 'ID', flex: 1 },
           { field: 'studentName', headerName: 'NAME', flex: 20 },
@@ -123,7 +125,7 @@ const AddStudent = ({ onHide, courseId }) => {
 };
 
 AddStudent.propTypes = {
-  onHideCreate: PropTypes.func.isRequired,
+  onHide: PropTypes.func.isRequired,
   courseId: PropTypes.number.isRequired,
 };
 
