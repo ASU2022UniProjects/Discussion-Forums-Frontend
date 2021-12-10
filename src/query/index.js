@@ -71,10 +71,7 @@ export const useAddStudent = (courseId, mutationConfig) => {
   const { axios } = useAxios();
   return useMutation(async (studentId) => {
     const { data } = await axios.post(
-      `${apiUrl}/courses/${courseId}/students`,
-      {
-        id: studentId,
-      }
+      `${apiUrl}/courses/${courseId}/users/${studentId}`
     );
     return data;
   }, mutationConfig);
@@ -93,43 +90,14 @@ export const useDeleteStudent = (courseId, mutationConfig) => {
   }, mutationConfig);
 };
 
+export const getCourseStudentsQueryKey = (courseId) => ['courses', courseId];
 export const useGetCourseStudents = (courseId) => {
   const { axios } = useAxios();
-  return useQuery(['courses', courseId], async () => {
-    // const { data } = await Axios.get(apiUrl + '/courses/' + courseId);
-    // return data;
-    return [
-      {
-        studentName: 'Meyer Wafik',
-        email: 'meyer@gmail.com',
-        pwHash: '$2a$10$RUS12epKHAsfuF8/4sIF1eTifwNdi1goTnGsZiY3A4MvpSeaAJu4S',
-        userRole: 'Student',
-        token: null,
-        id: 1,
-        createdAt: '2021-12-05T18:52:37.000Z',
-        updatedAt: '2021-12-05T18:52:37.000Z',
-      },
-      {
-        studentName: 'Meyer Wafik 2',
-        email: 'meyer@gmail.com',
-        pwHash: '$2a$10$RUS12epKHAsfuF8/4sIF1eTifwNdi1goTnGsZiY3A4MvpSeaAJu4S',
-        userRole: 'Student',
-        token: null,
-        id: 22,
-        createdAt: '2021-12-05T18:52:37.000Z',
-        updatedAt: '2021-12-05T18:52:37.000Z',
-      },
-      {
-        studentName: 'Meyer Wafik 3',
-        email: 'meyer@gmail.com',
-        pwHash: '$2a$10$RUS12epKHAsfuF8/4sIF1eTifwNdi1goTnGsZiY3A4MvpSeaAJu4S',
-        userRole: 'Student',
-        token: null,
-        id: 33,
-        createdAt: '2021-12-05T18:52:37.000Z',
-        updatedAt: '2021-12-05T18:52:37.000Z',
-      },
-    ];
+  return useQuery(getCourseStudentsQueryKey(courseId), async () => {
+    const { data } = await axios.get(
+      apiUrl + '/courses/' + courseId + '/users'
+    );
+    return data;
   });
 };
 

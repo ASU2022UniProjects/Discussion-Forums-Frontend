@@ -44,10 +44,7 @@ const AddStudent = ({ onHide, courseId }) => {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      addStudentMutation.mutate({
-        title: values['discussion-title'],
-        authorName: values['author-name'],
-      });
+      addStudentMutation.mutate(values.studentId);
     },
   });
 
