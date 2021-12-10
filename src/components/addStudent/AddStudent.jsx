@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import commonStyles from '../Common.module.css';
 import styles from './AddStudent.module.css';
-import { Button, LinearProgress } from '@mui/material';
+import { Alert, Button, LinearProgress, Snackbar } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import TextFieldFormik from '../TextFieldFormik';
@@ -10,7 +10,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import {
   useAddStudent,
   useGetCourseStudents,
-  useDeleteStudent,
+  useRemoveStudentsFromCourse,
 } from '../../query';
 
 const validationSchema = yup.object({
@@ -20,14 +20,32 @@ const validationSchema = yup.object({
 });
 
 const AddStudent = ({ onHide, courseId }) => {
+  const [snackBarMessage, setSnackBarMessage] = useState('');
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const showSnackbar = (msg) => {
+    setSnackBarMessage(msg);
+    setSnackBarOpen(true);
+  };
+
   const { data: students, refetch: refetchStudents } =
     useGetCourseStudents(courseId);
 
   const addStudentMutation = useAddStudent(courseId, {
+    onMutate: (newStudentId) => {
+      if (students.some((st) => st.id === parseInt(newStudentId))) {
+        showSnackbar('Student already in the course');
+      }
+    },
     onSuccess: refetchStudents,
+    onError: () => {
+      showSnackbar('Error in the student id');
+    },
   });
-  const removeStudentMutation = useDeleteStudent(courseId, {
+  const removeStudentMutation = useRemoveStudentsFromCourse(courseId, {
     onSuccess: refetchStudents,
+    onError: () => {
+      showSnackbar('An unknown error has occured');
+    },
   });
 
   const isFormDisabled = addStudentMutation.isLoading;
@@ -101,9 +119,7 @@ const AddStudent = ({ onHide, courseId }) => {
         <Button
           variant="contained"
           onClick={() => {
-            for (let deletedStudentId of deletedRows) {
-              removeStudentMutation.mutate(deletedStudentId);
-            }
+            removeStudentMutation.mutate(deletedRows);
           }}
           disabled={isFormDisabled || deletedRows.length === 0}
         >
@@ -119,6 +135,15 @@ const AddStudent = ({ onHide, courseId }) => {
         >
           Close
         </Button>
+        <Snackbar
+          open={snackBarOpen}
+          autoHideDuration={6000}
+          onClose={() => setSnackBarOpen(false)}
+        >
+          <Alert severity="error" variant="filled">
+            {snackBarMessage}
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );
