@@ -16,7 +16,7 @@ function App() {
         <div className={styles.title}>Courses</div>
         {accountRole === 'Admin' && !isCreateVisible && (
           <Button variant="contained" onClick={() => setIsCreateVisible(true)}>
-            Add Student
+            Add Course
           </Button>
         )}
       </div>
