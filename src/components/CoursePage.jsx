@@ -25,7 +25,6 @@ const CoursePage = () => {
     child = <ErrorOccurred />;
   }
 
-  console.log('🚀 ~ file: CoursePage.jsx ~ line 34 ~ CoursePage ~ data', data);
   return (
     <PageHOC>
       {child || (

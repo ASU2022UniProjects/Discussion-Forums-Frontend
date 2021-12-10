@@ -78,19 +78,6 @@ export const useAddStudent = (courseId, mutationConfig) => {
   }, mutationConfig);
 };
 
-export const useDeleteStudent = (courseId, mutationConfig) => {
-  const { axios } = useAxios();
-  return useMutation(async (studentId) => {
-    const { data } = await axios.delete(
-      `${apiUrl}/courses/${courseId}/students`,
-      {
-        id: studentId,
-      }
-    );
-    return data;
-  }, mutationConfig);
-};
-
 export const getCourseStudentsQueryKey = (courseId) => ['courses', courseId];
 export const useGetCourseStudents = (courseId) => {
   const { axios } = useAxios();
@@ -132,6 +119,17 @@ export const useDeleteCourse = (courseId, mutationConfig) => {
   const { axios } = useAxios();
   return useMutation(async () => {
     const { data } = await axios.delete(`${apiUrl}/courses/${courseId}`);
+    return data;
+  }, mutationConfig);
+};
+
+export const useRemoveStudentsFromCourse = (courseId, mutationConfig) => {
+  const { axios } = useAxios();
+  return useMutation(async (studentIds) => {
+    const { data } = await axios.patch(`${apiUrl}/courses/${courseId}/users`, {
+      operation: 'delete',
+      ids: studentIds,
+    });
     return data;
   }, mutationConfig);
 };
