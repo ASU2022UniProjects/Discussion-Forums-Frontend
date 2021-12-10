@@ -8,9 +8,11 @@ import DiscussionCardContainer from './discussionCard/DiscussionCardContainer';
 import CreateDiscussion from './createDiscussion/CreateDiscussion';
 import ErrorOccurred from './ErrorOccurred';
 import AddStudent from './addStudent/AddStudent';
+import { useAxios } from '../query/AxiosProvider';
 
 const CoursePage = () => {
   const { courseId } = useParams();
+  const { accountRole } = useAxios();
   const { isLoading, data, isError } = useGetDiscussions(courseId);
   const [isCreateVisible, setIsCreateVisible] = useState(false);
   const [isAddStudentVisible, setIsAddStudentVisible] = useState(false);
@@ -43,7 +45,7 @@ const CoursePage = () => {
                   Create Discussion
                 </Button>
               )}
-              {!isAddStudentVisible && (
+              {accountRole === 'Admin' && !isAddStudentVisible && (
                 <Button
                   variant="contained"
                   onClick={() => {
