@@ -25,12 +25,13 @@ const CoursePage = () => {
     child = <ErrorOccurred />;
   }
 
+  console.log('🚀 ~ file: CoursePage.jsx ~ line 34 ~ CoursePage ~ data', data);
   return (
     <PageHOC>
       {child || (
         <>
           <div className={`${commonStyles.title} ${commonStyles.flexRow}`}>
-            <div>{data.courseName}</div>
+            <div>{data.course.courseName}</div>
             <div
               style={{ display: 'flex', gap: '0.4em', marginBottom: '0.4em' }}
             >

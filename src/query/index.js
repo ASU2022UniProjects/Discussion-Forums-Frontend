@@ -118,3 +118,11 @@ export const useDeleteDiscussion = (discussionId, mutationConfig) => {
     return data;
   }, mutationConfig);
 };
+
+export const useCreateCourse = (mutationConfig) => {
+  const { axios } = useAxios();
+  return useMutation(async (course) => {
+    const { data } = await axios.post(`${apiUrl}/courses`, course);
+    return data;
+  }, mutationConfig);
+};
