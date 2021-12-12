@@ -62,7 +62,7 @@ export const useCreateComment = (discussionId, mutationConfig) => {
   return useMutation(async ({ content, discussionIdParam }) => {
     const { data } = await axios.post(
       `${apiUrl}/discussions/${discussionId || discussionIdParam}/comments`,
-      { content: 'sdasd' }
+      { content }
     );
     return data;
   }, mutationConfig);
